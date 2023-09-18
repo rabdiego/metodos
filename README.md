@@ -1,5 +1,4 @@
-# Construção e Análise de Algoritmos
-### CK0203
+# Métodos Numéricos I
 Professor: **Bento**  
 Linguagem: **C++**
 | Terça| Quinta |
