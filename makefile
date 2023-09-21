@@ -1,10 +1,13 @@
 ALL: main
 
-main: exprtk_main.o Function.o
-	g++ exprtk_main.o Function.o -o main
+main: main.o RootSolver.o Function.o
+	g++ main.o RootSolver.o Function.o -o main
 
-exprtk_main.o: exprtk_main.cpp Function.h exprtk.hpp
-	g++ -c exprtk_main.cpp
+main.o: main.cpp RootSolver.cpp RootSolver.h exprtk.hpp
+	g++ -c main.cpp
+
+RootSolver.o: RootSolver.cpp RootSolver.h Function.cpp Function.h
+	g++ -c RootSolver.cpp
 
 Function.o: Function.cpp Function.h exprtk.hpp
 	g++ -c Function.cpp

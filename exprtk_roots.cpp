@@ -4,12 +4,7 @@
 
 #include "exprtk.hpp"
 
-double absoluteValue(double a) {
-    if (a >= 0) {
-        return a;
-    }
-    return -a;
-}
+
 
 double bissectionMethod(std::string expression_string, double start, double end, double thr, int maxIttr) {
     if (start >= end) {
