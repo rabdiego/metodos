@@ -1,6 +1,10 @@
 #include "Function.h"
 
-Function::Function(std::string expression_string) {
+Function::Function() {
+    
+}
+
+void Function::setString(std::string expression_string) {
     this->symbol_table.add_variable("x", this->x);
     this->symbol_table.add_constants();
     this->expression.register_symbol_table(this->symbol_table);

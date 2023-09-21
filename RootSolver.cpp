@@ -7,19 +7,21 @@ double absoluteValue(double a) {
     return -a;
 }
 
+RootSolver::RootSolver() {
+
+}
+
 void RootSolver::setString(std::string expression_string) {
-    this->expression_string = expression_string;
+    this->foo.setString(expression_string);
 }
 
 double RootSolver::bissectionMethod(double start, double end, double thr, int maxIttr) {
     if (start >= end) {
         throw std::invalid_argument("Beginning of interval is greater than the ending");
     }
-    
-    Function foo(this->expression_string);
 
-    double functionAtStart = foo.value(start);
-    double functionAtEnd = foo.value(end);
+    double functionAtStart = this->foo.value(start);
+    double functionAtEnd = this->foo.value(end);
 
     double functionAtPoint;
 
@@ -32,14 +34,14 @@ double RootSolver::bissectionMethod(double start, double end, double thr, int ma
     double point = (start + end) / 2;
 
     while (interval > thr && ittr < maxIttr) {
-        functionAtPoint = foo.value(point);
+        functionAtPoint = this->foo.value(point);
 
         if (functionAtStart * functionAtPoint > 0) {
             start = point;
-            functionAtStart = foo.value(start);
+            functionAtStart = this->foo.value(start);
         } else {
             end = point;
-            functionAtEnd = foo.value(end);
+            functionAtEnd = this->foo.value(end);
         }
 
         interval = interval/2;
@@ -55,8 +57,6 @@ double RootSolver::falsePositionMethod(double start, double end, double thrInter
         throw std::invalid_argument("Beginning of interval is greater than the ending");
     }
 
-    Function foo(this->expression_string);
-
     double root;
     double functionAtPoint;
     double functionAtStart;
@@ -65,8 +65,8 @@ double RootSolver::falsePositionMethod(double start, double end, double thrInter
     double point;
     int ittr = 0;
 
-    functionAtStart = foo.value(start);
-    functionAtEnd = foo.value(end);
+    functionAtStart = this->foo.value(start);
+    functionAtEnd = this->foo.value(end);
 
     if (functionAtStart * functionAtEnd > 0) {
         throw std::invalid_argument("Function does not change its sign between given interval");
@@ -85,7 +85,7 @@ double RootSolver::falsePositionMethod(double start, double end, double thrInter
     while (1) {
         point = (start * functionAtEnd - end * functionAtStart) / (functionAtEnd - functionAtStart);
         
-        functionAtPoint = foo.value(point);
+        functionAtPoint = this->foo.value(point);
 
         if (absoluteValue(functionAtPoint) < thrFunction || ittr >= maxIttr) {
             root = point;
@@ -94,10 +94,10 @@ double RootSolver::falsePositionMethod(double start, double end, double thrInter
 
         if (functionAtStart * functionAtPoint > 0) {
             start = point;
-            functionAtStart = foo.value(start);
+            functionAtStart = this->foo.value(start);
         } else {
             end = point;
-            functionAtEnd = foo.value(end);
+            functionAtEnd = this->foo.value(end);
         }
 
         interval = end - start;

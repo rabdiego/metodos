@@ -5,14 +5,14 @@
 #define Function_H
 
 class Function {
-public:
+private:
     double x;
-
     exprtk::symbol_table<double> symbol_table;
     exprtk::expression<double> expression;
     exprtk::parser<double> parser;
-
-    Function(std::string expression_string);
+public:
+    Function();
+    void setString(std::string expression_string);
     double value(double x);
 };
 
