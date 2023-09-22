@@ -15,3 +15,7 @@ double Function::value(double x) {
     this->x = x;
     return this->expression.value();
 }
+
+double Function::derivativeValue(double x) {
+    return (this->value(x + 1e-5) - this->value(x))/(1e-5);
+}

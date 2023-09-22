@@ -112,3 +112,65 @@ double RootSolver::falsePositionMethod(double start, double end, double thrInter
 
     return root;
 }
+
+double RootSolver::fixedPointMethod(double x0, double thrInterval, double thrFunction, int maxIttr) {
+    if (absoluteValue(this->foo.value(x0) < thrFunction)) {
+        return x0;
+    }
+    
+    int ittr = 0;
+    double x1, root;
+    while (1) {
+        x1 = this->foo.value(x0);
+        
+        if (absoluteValue(this->foo.value(x1)) < thrFunction || absoluteValue(x1 - x0) < thrInterval || ittr >= maxIttr) {
+            return x1;
+        }
+
+        x0 = x1;
+        ittr++;
+    }
+}
+
+double RootSolver::newtonMethod(double x0, double thrInterval, double thrFunction, int maxIttr) {
+    if (absoluteValue(this->foo.value(x0)) < thrFunction) {
+        return x0;
+    }
+
+    double x1;
+    int ittr = 0;
+    while (1) {
+        x1 = x0 - (this->foo.value(x0))/(this->foo.derivativeValue(x0));
+
+        if (absoluteValue(this->foo.value(x1)) < thrFunction || absoluteValue(x1 - x0) < thrInterval || ittr >= maxIttr) {
+            return x1;
+        }
+
+        x0 = x1;
+        ittr++;
+    }
+}
+
+double RootSolver::secantMethod(double x0, double x1, double thrInterval, double thrFunction, int maxIttr) {
+    if (absoluteValue(this->foo.value(x0)) < thrFunction) {
+        return x0;
+    }
+
+    if (absoluteValue(this->foo.value(x1)) < thrFunction || absoluteValue(x1 - x0) < thrInterval) {
+        return x1;
+    }
+
+    double x2;
+    int ittr = 0;
+    while (1) {
+        x2 = x1 - this->foo.value(x1)/(this->foo.value(x1) - this->foo.value(x0)) * (x1 - x0);
+
+        if (absoluteValue(this->foo.value(x2)) < thrFunction || absoluteValue(x2 - x1) < thrInterval || ittr >= maxIttr) {
+            return x2;
+        }
+
+        x0 = x1;
+        x1 = x2;
+        ittr++;
+    }
+}

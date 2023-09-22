@@ -14,6 +14,7 @@ public:
     Function();
     void setString(std::string expression_string);
     double value(double x);
+    double derivativeValue(double x);
 };
 
 #endif
